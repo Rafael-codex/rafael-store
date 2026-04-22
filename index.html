@@ -1,0 +1,657 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=yes">
+    <title>Rafael-Codex 🐧 - tienda Online | Sube y Comparte HTML</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Inter:opsz,wght@14..32,300;14..32,400;14..32,600;14..32,700&family=Orbitron:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            background: radial-gradient(circle at 10% 20%, #0a0f1e, #03050b);
+            font-family: 'Inter', sans-serif;
+            color: #eef5ff;
+            padding: 2rem 1.5rem;
+        }
+        .container {
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .top-bar {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(15, 25, 45, 0.7);
+            backdrop-filter: blur(12px);
+            border-radius: 60px;
+            padding: 0.8rem 2rem;
+            margin-bottom: 2.5rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 8px 20px rgba(0,0,0,0.4);
+        }
+        .logo-area {
+            display: flex;
+            align-items: baseline;
+            gap: 0.5rem;
+            flex-wrap: wrap;
+        }
+        .logo {
+            font-family: 'Orbitron', monospace;
+            font-weight: 700;
+            font-size: 1.6rem;
+            background: linear-gradient(135deg, #aaffff, #7a2eff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+            letter-spacing: -0.5px;
+        }
+        .badge {
+            background: #ff3366;
+            padding: 0.2rem 0.8rem;
+            border-radius: 40px;
+            font-size: 0.7rem;
+            font-weight: bold;
+        }
+        .nav-links {
+            display: flex;
+            gap: 1.5rem;
+            align-items: center;
+            flex-wrap: wrap;
+        }
+        .nav-links a, .btn-outline-light {
+            color: #ccdeff;
+            text-decoration: none;
+            font-weight: 500;
+            transition: 0.2s;
+            font-size: 0.9rem;
+            cursor: pointer;
+        }
+        .nav-links a:hover, .btn-outline-light:hover {
+            color: cyan;
+            text-shadow: 0 0 5px cyan;
+        }
+        .btn-outline-light {
+            border: 1px solid cyan;
+            padding: 0.4rem 1rem;
+            border-radius: 30px;
+            background: transparent;
+        }
+        .btn-primary-neon {
+            background: linear-gradient(95deg, #2b6eff, #9f4dff);
+            border: none;
+            padding: 0.5rem 1.5rem;
+            border-radius: 40px;
+            font-weight: bold;
+            color: white;
+            cursor: pointer;
+            transition: 0.2s;
+            box-shadow: 0 0 8px #9f4dff;
+        }
+        .btn-primary-neon:hover {
+            transform: scale(1.02);
+            box-shadow: 0 0 15px cyan;
+        }
+        .btn-primary-neon:disabled {
+            opacity: 0.6;
+            cursor: not-allowed;
+        }
+
+        .hero {
+            background: linear-gradient(125deg, #0b1120, #03071e);
+            border-radius: 2rem;
+            padding: 2rem 2rem;
+            margin-bottom: 3rem;
+            border: 1px solid rgba(0,255,255,0.3);
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: space-between;
+            align-items: center;
+        }
+        .hero h1 {
+            font-family: 'Orbitron', monospace;
+            font-size: 2.2rem;
+            background: linear-gradient(135deg, #f0f, #0ff);
+            -webkit-background-clip: text;
+            background-clip: text;
+            color: transparent;
+        }
+        .buy-btn {
+            background: #ff3366;
+            padding: 0.8rem 2rem;
+            border-radius: 50px;
+            font-weight: bold;
+            border: none;
+            color: white;
+            cursor: pointer;
+        }
+
+        .dashboard-grid {
+            display: grid;
+            grid-template-columns: 1fr 1.2fr;
+            gap: 2rem;
+            margin-bottom: 3rem;
+        }
+        @media (max-width: 880px) {
+            .dashboard-grid { grid-template-columns: 1fr; }
+            .top-bar { flex-direction: column; gap: 1rem; }
+        }
+
+        .upload-card, .preview-card {
+            background: rgba(12, 20, 35, 0.7);
+            backdrop-filter: blur(10px);
+            border-radius: 2rem;
+            padding: 1.8rem;
+            border: 1px solid rgba(0, 255, 255, 0.2);
+            box-shadow: 0 15px 35px rgba(0,0,0,0.5);
+        }
+        .upload-card h3, .preview-card h3 {
+            font-size: 1.6rem;
+            margin-bottom: 1rem;
+            font-weight: 600;
+            display: flex;
+            align-items: center;
+            gap: 10px;
+        }
+        .form-group {
+            margin-bottom: 1.2rem;
+        }
+        label {
+            font-weight: 600;
+            display: block;
+            margin-bottom: 0.4rem;
+            color: #bbd9ff;
+        }
+        input, textarea, select {
+            width: 100%;
+            background: #0a1022;
+            border: 1px solid #2c3f66;
+            border-radius: 20px;
+            padding: 0.8rem 1rem;
+            color: white;
+            font-family: 'Inter', sans-serif;
+            outline: none;
+            transition: 0.2s;
+        }
+        input:focus, textarea:focus, select:focus {
+            border-color: cyan;
+            box-shadow: 0 0 5px cyan;
+        }
+        .file-area {
+            border: 2px dashed #3b4b6e;
+            border-radius: 30px;
+            padding: 1.5rem;
+            text-align: center;
+            cursor: pointer;
+            transition: 0.2s;
+        }
+        .file-area:hover {
+            border-color: cyan;
+            background: rgba(0,255,255,0.05);
+        }
+        .radio-group {
+            display: flex;
+            gap: 1rem;
+            margin-top: 0.3rem;
+        }
+        .radio-group label {
+            display: flex;
+            align-items: center;
+            gap: 0.4rem;
+            font-weight: normal;
+        }
+
+        .files-grid {
+            display: flex;
+            flex-direction: column;
+            gap: 1.5rem;
+            max-height: 550px;
+            overflow-y: auto;
+            padding-right: 0.5rem;
+        }
+        .file-card {
+            background: rgba(8, 14, 26, 0.8);
+            border-radius: 1.5rem;
+            padding: 1.2rem;
+            transition: 0.2s;
+            border-left: 4px solid cyan;
+            position: relative;
+        }
+        .file-card h4 {
+            font-size: 1.2rem;
+            display: flex;
+            justify-content: space-between;
+            margin-bottom: 10px;
+        }
+        .price-tag {
+            background: #1f2a44;
+            padding: 0.2rem 0.9rem;
+            border-radius: 30px;
+            font-weight: bold;
+            font-size: 0.7rem;
+        }
+        .price-tag.free {
+            background: #2a6b3c;
+        }
+        .meta-info {
+            display: flex;
+            gap: 1rem;
+            font-size: 0.75rem;
+            color: #8aa2d4;
+            margin: 0.6rem 0;
+        }
+        .actions {
+            display: flex;
+            gap: 0.8rem;
+            margin-top: 0.8rem;
+            flex-wrap: wrap;
+        }
+        .btn-sm {
+            background: #1e2a46;
+            border: none;
+            padding: 0.3rem 1rem;
+            border-radius: 30px;
+            color: white;
+            cursor: pointer;
+            font-size: 0.75rem;
+            transition: 0.2s;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .btn-sm.download {
+            background: #2c5f8a;
+        }
+        .btn-sm.download:hover {
+            background: #1e8bc0;
+        }
+        footer {
+            text-align: center;
+            margin-top: 3rem;
+            font-size: 0.8rem;
+            opacity: 0.7;
+        }
+        ::-webkit-scrollbar {
+            width: 6px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111a2c;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: cyan;
+            border-radius: 10px;
+        }
+        .loading {
+            text-align: center;
+            padding: 40px;
+            color: cyan;
+        }
+        .preview-img-card {
+            width: 100%;
+            max-height: 120px;
+            object-fit: cover;
+            border-radius: 10px;
+            margin: 8px 0;
+        }
+        .error-message {
+            text-align: center;
+            padding: 40px;
+            color: #ff6666;
+        }
+        .server-status {
+            background: rgba(0,255,0,0.1);
+            border: 1px solid #00ff00;
+            border-radius: 20px;
+            padding: 5px 15px;
+            font-size: 0.7rem;
+            display: inline-flex;
+            align-items: center;
+            gap: 5px;
+        }
+    </style>
+</head>
+<body>
+<div class="container">
+    <div class="top-bar">
+        <div class="logo-area">
+            <span class="logo">✦ RAFAEL-CODEX ✦</span>
+            <span class="badge">PROGRAMACIÓN WEB</span>
+        </div>
+        <div class="nav-links">
+            <a onclick="cargarArchivos(); return false;"><i class="fas fa-compass"></i> Explorar</a>
+            <a href="#upload"><i class="fas fa-upload"></i> Subir archivo</a>
+            <a href="#"><i class="fas fa-language"></i> Idioma Español</a>
+            <a href="#" class="btn-outline-light"><i class="fas fa-heart"></i> Donar</a>
+            <a href="#"><i class="fas fa-user-plus"></i> Registrarse</a>
+            <a href="#"><i class="fas fa-sign-in-alt"></i> Iniciar sesión</a>
+        </div>
+    </div>
+    <div class="hero">
+        <div>
+            <h1>⚡ ADZILLA: THE MONSTER AWAKENS ⚡</h1>
+            <p>Desata tu código con estilo galáctico. Plantillas, efectos y sistemas únicos.</p>
+        </div>
+        <button class="buy-btn" id="buyNowBtn">🔥 BUY NOW 🔥</button>
+    </div>
+    <div class="dashboard-grid">
+        <div class="upload-card" id="upload">
+            <h3><i class="fas fa-cloud-upload-alt"></i> Sube tu archivo HTML</h3>
+            <p>Comparte tus creaciones. Gratis o contenido premium VIP.</p>
+            <form id="uploadForm">
+                <div class="form-group">
+                    <label>Nombre del archivo *</label>
+                    <input type="text" id="fileName" placeholder="Ej: Dashboard Admin Template" required>
+                </div>
+                <div class="form-group">
+                    <label>Descripción</label>
+                    <textarea rows="2" id="fileDesc" placeholder="Características, para qué está diseñado..."></textarea>
+                </div>
+                <div class="form-group">
+                    <label>Imagen preview (desde tu dispositivo)</label>
+                    <div class="file-area" id="imageDropArea">
+                        <i class="fas fa-image fa-2x"></i>
+                        <p>Haz clic para seleccionar imagen</p>
+                        <input type="file" id="imageInput" accept="image/*" style="display:none;">
+                        <button type="button" class="btn-sm" id="selectImageBtn">Elegir imagen</button>
+                        <span id="selectedImageName" style="display:block; font-size:0.75rem; margin-top:5px;">
+                            Ninguna imagen seleccionada
+                        </span>
+                    </div>
+                </div>
+                <div class="form-group">
+                    <label>Archivo HTML (.html / .htm)</label>
+                    <div class="file-area" id="fileDropArea">
+                        <i class="fas fa-file-code fa-2x"></i>
+                        <p>Arrastra tu archivo HTML o haz clic para seleccionar</p>
+                        <input type="file" id="htmlFileInput" accept=".html,.htm" style="display: none;">
+                        <button type="button" class="btn-sm" id="selectFileBtn">Elegir archivo</button>
+                        <span id="selectedFileName" style="display: block; font-size: 0.75rem; margin-top: 5px;">Ningún archivo seleccionado</span>
+                    </div>
+                </div>
+                <button type="submit" class="btn-primary-neon" style="width:100%; margin-top: 0.5rem;"><i class="fas fa-rocket"></i> Publicar archivo</button>
+            </form>
+        </div>
+        <div class="preview-card">
+            <h3><i class="fas fa-store"></i> Comunidad <span style="font-size: 0.8rem;">✨ código html ✨</span></h3>
+            <div id="filesListContainer" class="files-grid">
+                <div class="loading"><i class="fas fa-spinner fa-spin"></i> Cargando archivos...</div>
+            </div>
+            <div style="margin-top: 1rem; text-align: center; display: flex; justify-content: space-between; align-items: center;">
+                <span><i class="fas fa-chart-line"></i> Comunidad activa</span>
+                <span id="serverStatus" class="server-status"><i class="fas fa-circle" style="color:#00ff00; font-size: 8px;"></i> Servidor Online</span>
+                <span><i class="fab fa-youtube"></i> YouTube</span>
+            </div>
+        </div>
+    </div>
+    <footer>
+        Rafael-codex · Todos los derechos creativos · Sube tu esencia HTML
+    </footer>
+</div>
+
+<script>
+// ================== CONFIGURACIÓN ==================
+const API_URL = "http://localhost:3000";
+
+// ================== ELEMENTOS ==================
+const form = document.getElementById("uploadForm");
+const fileInput = document.getElementById("htmlFileInput");
+const selectBtn = document.getElementById("selectFileBtn");
+const fileNameText = document.getElementById("selectedFileName");
+const imageInput = document.getElementById("imageInput");
+const selectImageBtn = document.getElementById("selectImageBtn");
+const selectedImageName = document.getElementById("selectedImageName");
+
+// ================== ARCHIVO HTML ==================
+selectBtn.onclick = () => fileInput.click();
+
+fileInput.onchange = () => {
+    if (fileInput.files.length > 0) {
+        fileNameText.textContent = fileInput.files[0].name;
+    }
+};
+
+// ================== IMAGEN ==================
+let imagenBase64 = "";
+
+selectImageBtn.onclick = () => imageInput.click();
+
+imageInput.onchange = () => {
+    if (imageInput.files.length > 0) {
+        const file = imageInput.files[0];
+        selectedImageName.textContent = file.name;
+        
+        if (file.size > 2 * 1024 * 1024) {
+            alert("⚠️ La imagen es muy grande (máximo 2MB)");
+            imageInput.value = "";
+            selectedImageName.textContent = "Ninguna imagen seleccionada";
+            imagenBase64 = "";
+            return;
+        }
+
+        const reader = new FileReader();
+        reader.onload = function(e) {
+            imagenBase64 = e.target.result;
+        };
+        reader.readAsDataURL(file);
+    }
+};
+
+// ================== SUBIR ARCHIVO ==================
+form.onsubmit = async (e) => {
+    e.preventDefault();
+
+    const nombre = document.getElementById("fileName").value.trim();
+    if (!nombre) {
+        alert("❌ Escribe un nombre para el archivo");
+        return;
+    }
+
+    if (!fileInput.files.length) {
+        alert("❌ Sube un archivo HTML primero");
+        return;
+    }
+
+    if (fileInput.files[0].size > 10 * 1024 * 1024) {
+        alert("❌ El archivo HTML es muy grande (máximo 10MB)");
+        return;
+    }
+
+    const submitBtn = form.querySelector('button[type="submit"]');
+    const originalText = submitBtn.innerHTML;
+    submitBtn.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Publicando...';
+    submitBtn.disabled = true;
+
+    const reader = new FileReader();
+
+    reader.onload = async function(ev) {
+        const data = {
+            nombre: nombre,
+            descripcion: document.getElementById("fileDesc").value.trim(),
+            contenido: ev.target.result,
+            imagen: imagenBase64 || null
+        };
+
+        try {
+            console.log("Enviando a:", `${API_URL}/api/subir`);
+            const res = await fetch(`${API_URL}/api/subir`, {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify(data)
+            });
+            
+            const result = await res.json();
+            
+            if (result.success) {
+                alert("✅ ¡Publicado con éxito!\n\n" + result.url);
+                window.open(`${API_URL}${result.url}`, "_blank");
+                
+                form.reset();
+                fileNameText.textContent = "Ningún archivo seleccionado";
+                selectedImageName.textContent = "Ninguna imagen seleccionada";
+                imagenBase64 = "";
+                fileInput.value = "";
+                imageInput.value = "";
+                
+                await cargarArchivos();
+            } else {
+                alert("❌ Error: " + (result.error || "Desconocido"));
+            }
+        } catch (err) {
+            console.error("Error detallado:", err);
+            alert("❌ Error de conexión. ¿El servidor está corriendo en " + API_URL + "?\n\n" + err.message);
+            document.getElementById("serverStatus").innerHTML = '<i class="fas fa-circle" style="color:#ff0000; font-size: 8px;"></i> Servidor Offline';
+        } finally {
+            submitBtn.innerHTML = originalText;
+            submitBtn.disabled = false;
+        }
+    };
+    
+    reader.onerror = function() {
+        alert("❌ Error al leer el archivo");
+        submitBtn.innerHTML = originalText;
+        submitBtn.disabled = false;
+    };
+    
+    reader.readAsText(fileInput.files[0]);
+};
+
+// ================== CARGAR ARCHIVOS ==================
+async function cargarArchivos() {
+    const container = document.getElementById("filesListContainer");
+    if (!container) return;
+    
+    container.innerHTML = '<div class="loading"><i class="fas fa-spinner fa-spin"></i> Conectando con servidor...</div>';
+    
+    try {
+        console.log("Conectando a:", `${API_URL}/api/archivos`);
+        const res = await fetch(`${API_URL}/api/archivos`);
+        
+        if (!res.ok) {
+            throw new Error(`HTTP ${res.status}: ${res.statusText}`);
+        }
+        
+        const archivos = await res.json();
+        console.log("Archivos recibidos:", archivos);
+        
+        document.getElementById("serverStatus").innerHTML = '<i class="fas fa-circle" style="color:#00ff00; font-size: 8px;"></i> Servidor Online';
+        
+        if (!archivos.length) {
+            container.innerHTML = '<div style="text-align:center;padding:40px;">📭 No hay archivos aún. ¡Sé el primero en subir uno!</div>';
+            return;
+        }
+        
+        container.innerHTML = archivos.map(arch => `
+            <div class="file-card">
+                <h4>
+                    📄 ${escapeHtml(arch.nombre)}
+                    <span class="price-tag free">🎁 Gratis</span>
+                </h4>
+                ${arch.imagen ? `<img src="${arch.imagen}" class="preview-img-card" alt="Preview" onerror="this.style.display='none'">` : ""}
+                <div class="meta-info">
+                    <span><i class="fas fa-calendar"></i> ${new Date(arch.fecha).toLocaleDateString()}</span>
+                    <span><i class="fas fa-code"></i> HTML</span>
+                </div>
+                <p style="font-size:0.85rem;margin:8px 0;color:#bbd9ff;">${escapeHtml(arch.descripcion || "Sin descripción")}</p>
+                <div class="actions">
+                    <a href="${API_URL}/ver/${arch.id}" target="_blank" class="btn-sm download">
+                        <i class="fas fa-eye"></i> Ver
+                    </a>
+                    <button class="btn-sm" onclick="copiarLink('${API_URL}/ver/${arch.id}')">
+                        <i class="fas fa-share-alt"></i> Compartir
+                    </button>
+                </div>
+            </div>
+        `).join('');
+    } catch (err) {
+        console.error("Error cargando archivos:", err);
+        document.getElementById("serverStatus").innerHTML = '<i class="fas fa-circle" style="color:#ff0000; font-size: 8px;"></i> Servidor Offline';
+        container.innerHTML = `
+            <div style="text-align:center;padding:40px;">
+                <i class="fas fa-exclamation-triangle" style="font-size:2rem;color:#ff3366;"></i>
+                <p style="margin-top:10px;">⚠️ Error al conectar con el servidor</p>
+                <p style="font-size:0.8rem;">Asegúrate que el servidor esté corriendo en ${API_URL}</p>
+                <p style="font-size:0.7rem;margin-top:5px;">Ejecuta: <strong>node server.js</strong> en la terminal</p>
+                <button class="btn-sm" onclick="cargarArchivos()" style="margin-top:10px;">🔄 Reintentar</button>
+            </div>
+        `;
+    }
+}
+
+// ================== UTILIDADES ==================
+function escapeHtml(str) {
+    if (!str) return "";
+    return str
+        .replace(/&/g, "&amp;")
+        .replace(/</g, "&lt;")
+        .replace(/>/g, "&gt;")
+        .replace(/"/g, "&quot;")
+        .replace(/'/g, "&#39;");
+}
+
+function copiarLink(link) {
+    navigator.clipboard.writeText(link).then(() => {
+        alert("✅ Enlace copiado al portapapeles\n\n" + link);
+    }).catch(() => {
+        prompt("❌ Copia manualmente este enlace:", link);
+    });
+}
+
+// ================== DRAG & DROP ==================
+const dropArea = document.getElementById("fileDropArea");
+if (dropArea) {
+    dropArea.addEventListener("dragover", (e) => {
+        e.preventDefault();
+        dropArea.style.borderColor = "cyan";
+    });
+    
+    dropArea.addEventListener("dragleave", () => {
+        dropArea.style.borderColor = "#3b4b6e";
+    });
+    
+    dropArea.addEventListener("drop", (e) => {
+        e.preventDefault();
+        dropArea.style.borderColor = "#3b4b6e";
+        const files = e.dataTransfer.files;
+        if (files.length && (files[0].name.endsWith(".html") || files[0].name.endsWith(".htm"))) {
+            fileInput.files = files;
+            fileNameText.textContent = files[0].name;
+        } else {
+            alert("❌ Solo se permiten archivos .html o .htm");
+        }
+    });
+}
+
+// ================== VERIFICAR SERVIDOR AL INICIAR ==================
+async function verificarServidor() {
+    try {
+        const res = await fetch(`${API_URL}/api/archivos`);
+        if (res.ok) {
+            document.getElementById("serverStatus").innerHTML = '<i class="fas fa-circle" style="color:#00ff00; font-size: 8px;"></i> Servidor Online';
+        } else {
+            document.getElementById("serverStatus").innerHTML = '<i class="fas fa-circle" style="color:#ffaa00; font-size: 8px;"></i> Servidor Lento';
+        }
+    } catch (err) {
+        document.getElementById("serverStatus").innerHTML = '<i class="fas fa-circle" style="color:#ff0000; font-size: 8px;"></i> Servidor Offline';
+    }
+}
+
+// ================== INICIALIZAR ==================
+verificarServidor();
+cargarArchivos();
+
+document.getElementById("buyNowBtn")?.addEventListener("click", () => {
+    alert("🔥 Próximamente: Plantillas premium y cursos 🔥");
+});
+
+// Mostrar la URL del servidor en consola para depuración
+console.log("🔧 Conectando a servidor en:", API_URL);
+console.log("💡 Si ves errores, asegúrate que 'node server.js' está ejecutándose");
+</script>
+</body>
+</html>
